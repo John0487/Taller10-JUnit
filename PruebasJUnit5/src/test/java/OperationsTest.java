@@ -20,7 +20,7 @@ public class OperationsTest {
     void testDivisionByZero() {
         ArithmeticException exception = assertThrows(
             ArithmeticException.class,
-            () -> Operations.solve("10/0"),
+            () -> Operations.Solve("10/0"),
             "Dividir por cero debería lanzar ArithmeticException"
         );
         
@@ -32,7 +32,7 @@ public class OperationsTest {
     void testDivisionByZeroInComplexExpression() {
         assertThrows(
             ArithmeticException.class,
-            () -> Operations.solve("5+3/0-2"),
+            () -> Operations.Solve("5+3/0-2"),
             "División por cero en expresión compleja debería lanzar ArithmeticException"
         );
     }
@@ -42,7 +42,7 @@ public class OperationsTest {
     void testEmptyFormula() {
         IllegalArgumentException exception = assertThrows(
             IllegalArgumentException.class,
-            () -> Operations.solve(""),
+            () -> Operations.Solve(""),
             "Una fórmula vacía debería lanzar IllegalArgumentException"
         );
         
@@ -56,7 +56,7 @@ public class OperationsTest {
     void testNullFormula() {
         IllegalArgumentException exception = assertThrows(
             IllegalArgumentException.class,
-            () -> Operations.solve(null),
+            () -> Operations.Solve(null),
             "Una fórmula null debería lanzar IllegalArgumentException"
         );
         
@@ -70,7 +70,7 @@ public class OperationsTest {
     void testInvalidOperator() {
         IllegalArgumentException exception = assertThrows(
             IllegalArgumentException.class,
-            () -> Operations.solve("5@3"),
+            () -> Operations.Solve("5@3"),
             "Un operador inválido debería lanzar IllegalArgumentException"
         );
         
@@ -84,13 +84,13 @@ public class OperationsTest {
     void testUnbalancedParentheses() {
         assertAll(
             () -> assertThrows(IllegalArgumentException.class, 
-                () -> Operations.solve("(5+3"), 
+                () -> Operations.Solve("(5+3"), 
                 "Paréntesis de apertura sin cierre"),
             () -> assertThrows(IllegalArgumentException.class, 
-                () -> Operations.solve("5+3)"), 
+                () -> Operations.Solve("5+3)"), 
                 "Paréntesis de cierre sin apertura"),
             () -> assertThrows(IllegalArgumentException.class, 
-                () -> Operations.solve("((5+3)"), 
+                () -> Operations.Solve("((5+3)"), 
                 "Múltiples paréntesis desbalanceados")
         );
     }
@@ -100,13 +100,13 @@ public class OperationsTest {
     void testFormulaEndingWithOperator() {
         assertAll(
             () -> assertThrows(IllegalArgumentException.class, 
-                () -> Operations.solve("5+3+"), 
+                () -> Operations.Solve("5+3+"), 
                 "Fórmula terminando en suma"),
             () -> assertThrows(IllegalArgumentException.class, 
-                () -> Operations.solve("10*2-"), 
+                () -> Operations.Solve("10*2-"), 
                 "Fórmula terminando en resta"),
             () -> assertThrows(IllegalArgumentException.class, 
-                () -> Operations.solve("8/"), 
+                () -> Operations.Solve("8/"), 
                 "Fórmula terminando en división")
         );
     }
@@ -116,13 +116,13 @@ public class OperationsTest {
     void testFormulaStartingWithOperator() {
         assertAll(
             () -> assertThrows(IllegalArgumentException.class, 
-                () -> Operations.solve("+5+3"), 
+                () -> Operations.Solve("+5+3"), 
                 "Fórmula empezando con suma"),
             () -> assertThrows(IllegalArgumentException.class, 
-                () -> Operations.solve("*5+3"), 
+                () -> Operations.Solve("*5+3"), 
                 "Fórmula empezando con multiplicación"),
             () -> assertThrows(IllegalArgumentException.class, 
-                () -> Operations.solve("/5+3"), 
+                () -> Operations.Solve("/5+3"), 
                 "Fórmula empezando con división")
         );
     }
@@ -132,7 +132,7 @@ public class OperationsTest {
     void testEmptyParentheses() {
         IllegalArgumentException exception = assertThrows(
             IllegalArgumentException.class,
-            () -> Operations.solve("5+()"),
+            () -> Operations.Solve("5+()"),
             "Paréntesis vacíos deberían lanzar IllegalArgumentException"
         );
         
@@ -147,7 +147,7 @@ public class OperationsTest {
         // Test con números muy grandes que podrían causar overflow
         assertDoesNotThrow(() -> {
             String largeNumberFormula = "999999999999999*999999999999999";
-            Operations.solve(largeNumberFormula);
+            Operations.Solve(largeNumberFormula);
         }, "Operaciones con números grandes no deberían lanzar excepciones inesperadas");
     }
     
@@ -156,7 +156,7 @@ public class OperationsTest {
     void testZeroPowerNegativeExponent() {
         ArithmeticException exception = assertThrows(
             ArithmeticException.class,
-            () -> Operations.solve("0^-1"),
+            () -> Operations.Solve("0^-1"),
             "Cero elevado a exponente negativo debería lanzar ArithmeticException"
         );
         
@@ -174,7 +174,7 @@ public class OperationsTest {
         
         for (String formula : invalidFormulas) {
             assertThrows(IllegalArgumentException.class, 
-                () -> Operations.solve(formula),
+                () -> Operations.Solve(formula),
                 () -> "La fórmula '" + formula + "' con caracteres especiales debería ser inválida");
         }
     }
