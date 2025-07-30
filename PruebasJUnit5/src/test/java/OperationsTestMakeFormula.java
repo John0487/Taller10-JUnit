@@ -33,6 +33,16 @@ public class OperationsTestMakeFormula {
         assertTrue(contador <= 2);
     }
     
+    @DisplayName("Verificar que MakeFormula genera solo números entre 1 y 99")
+    @Test
+    public void Mf4(){
+        String formula = Operations.MakeFormula();
+        String[] numeros = formula.split("[+\\-*/]");
+        for (String numStr : numeros){
+            int num = Integer.parseInt(numStr);
+            assertTrue(num>=1 && num<=99, "Numero fuera de rango: "+num);
+        }
+    }
 }
 
    
